@@ -27,6 +27,7 @@ export default function Header() {
   }, [open]);
 
   return (
+    <>
     <header className="sticky top-0 z-50 bg-cream/90 backdrop-blur border-b border-line">
       <div className="bg-ink text-cream text-center py-1.5">
         <span className="label">Handmade in India · Free shipping over ₹1,499</span>
@@ -85,8 +86,10 @@ export default function Header() {
           </div>
         </div>
       </div>
+    </header>
 
-      {/* mobile drawer */}
+      {/* mobile drawer — sibling of <header> so `fixed` anchors to the viewport
+          (a blurred ancestor would otherwise become its containing block) */}
       {open && (
         <div className="md:hidden fixed inset-0 z-[60]">
           <div className="absolute inset-0 bg-ink/40" onClick={() => setOpen(false)} />
@@ -128,7 +131,7 @@ export default function Header() {
           </div>
         </div>
       )}
-    </header>
+    </>
   );
 }
 
