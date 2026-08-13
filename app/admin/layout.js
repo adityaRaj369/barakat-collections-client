@@ -2,7 +2,7 @@ import { getServerSession } from "next-auth";
 import { redirect } from "next/navigation";
 import Link from "next/link";
 import { authOptions } from "@/lib/auth";
-import { isAdmin } from "@/lib/admin";
+import { demoAdminBypassEnabled, isAdmin } from "@/lib/admin";
 import AdminSidebar from "@/components/admin/AdminSidebar";
 
 export const dynamic = "force-dynamic";
@@ -12,6 +12,15 @@ export const metadata = {
 };
 
 export default async function AdminLayout({ children }) {
+  if (demoAdminBypassEnabled()) {
+    return (
+      <div className="md:flex min-h-screen bg-cream">
+        <AdminSidebar />
+        <main className="flex-1 min-w-0 p-4 md:p-8">{children}</main>
+      </div>
+    );
+  }
+
   const session = await getServerSession(authOptions);
   if (!session?.user) redirect("/login?callbackUrl=/admin");
 
