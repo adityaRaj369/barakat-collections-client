@@ -16,11 +16,20 @@ html {
   scroll-behavior: smooth;
 }
 
+html,
 body {
   margin: 0;
   background: #ffffff;
   color: #20201c;
   font-family: var(--font-sans);
+  overflow-x: hidden;
+  max-width: 100%;
+}
+
+img,
+svg,
+video {
+  max-width: 100%;
 }
 
 ::selection {

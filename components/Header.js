@@ -51,12 +51,12 @@ export default function Header() {
               <button className="lg:hidden p-2 -ml-2" aria-label="Menu" onClick={() => setOpen(true)}>
                 <Burger />
               </button>
-              <Link href="/" className="flex items-center gap-2.5">
-                <span className="w-10 h-10 rounded-xl bg-clay text-white grid place-items-center">
+              <Link href="/" className="flex items-center gap-2 min-w-0">
+                <span className="w-9 h-9 md:w-10 md:h-10 rounded-xl bg-clay text-white grid place-items-center shrink-0">
                   <BagIcon />
                 </span>
-                <span className="leading-none">
-                  <span className="block font-serif text-xl md:text-2xl font-bold tracking-tight text-forest">
+                <span className="leading-none min-w-0">
+                  <span className="block font-serif text-base sm:text-xl md:text-2xl font-bold tracking-tight text-forest truncate">
                     Barakat<span className="text-clay">Collections</span>
                   </span>
                   <span className="hidden sm:block text-[10px] text-muted mt-0.5">

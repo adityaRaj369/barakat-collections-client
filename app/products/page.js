@@ -101,11 +101,11 @@ export default async function ProductsPage({ searchParams }) {
             chip(`/products?category=${c.slug}`, c.name, category === c.slug)
           )}
         </div>
-        <div className="flex items-center gap-3">
+        <div className="flex flex-wrap items-center gap-x-3 gap-y-2">
           <span className="label text-muted tabular-nums">
             {products.length} items
           </span>
-          <div className="flex gap-2">
+          <div className="flex flex-wrap gap-2">
             {Object.entries(SORTS).map(([key, s]) => {
               const params = new URLSearchParams();
               if (category) params.set("category", category);

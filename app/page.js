@@ -51,7 +51,7 @@ export default async function HomePage() {
             <span className="inline-block bg-white/12 text-white/90 text-[11px] font-semibold uppercase tracking-wide px-3 py-1.5 rounded-full">
               Limited time only
             </span>
-            <h1 className="font-serif font-bold leading-[1.02] text-4xl md:text-6xl mt-5">
+            <h1 className="font-serif font-bold leading-[1.02] text-3xl sm:text-4xl md:text-6xl mt-5">
               Shop More,
               <br />
               <span className="text-clay">Save More!</span>

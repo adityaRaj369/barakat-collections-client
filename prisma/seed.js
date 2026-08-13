@@ -5,9 +5,9 @@ const { PrismaClient } = require("@prisma/client");
 const bcrypt = require("bcryptjs");
 const prisma = new PrismaClient();
 
-// Demo admin account (change in production).
+// Demo admin account. Set ADMIN_PASSWORD in .env to create/update it.
 const ADMIN_EMAIL = "admin@barakatcollections.com";
-const ADMIN_PASSWORD = "barakat@admin1";
+const ADMIN_PASSWORD = process.env.ADMIN_PASSWORD;
 
 const img = (id) =>
   `https://images.unsplash.com/${id}?auto=format&fit=crop&w=900&q=80`;
@@ -126,25 +126,30 @@ async function main() {
     });
   }
 
-  // Demo admin account
-  const passwordHash = await bcrypt.hash(ADMIN_PASSWORD, 12);
-  await prisma.user.upsert({
-    where: { email: ADMIN_EMAIL },
-    update: { role: "admin", passwordHash, name: "Barakat Admin" },
-    create: {
-      email: ADMIN_EMAIL,
-      name: "Barakat Admin",
-      role: "admin",
-      passwordHash,
-    },
-  });
+  if (ADMIN_PASSWORD) {
+    const passwordHash = await bcrypt.hash(ADMIN_PASSWORD, 12);
+    await prisma.user.upsert({
+      where: { email: ADMIN_EMAIL },
+      update: { role: "admin", passwordHash, name: "Barakat Admin" },
+      create: {
+        email: ADMIN_EMAIL,
+        name: "Barakat Admin",
+        role: "admin",
+        passwordHash,
+      },
+    });
+  }
 
   const count = await prisma.product.count();
   console.log(`Seed complete: ${categories.length} categories, ${count} products.`);
   console.log("");
-  console.log("  Admin login:");
-  console.log(`    Email:    ${ADMIN_EMAIL}`);
-  console.log(`    Password: ${ADMIN_PASSWORD}`);
+  if (ADMIN_PASSWORD) {
+    console.log("  Admin login:");
+    console.log(`    Email:    ${ADMIN_EMAIL}`);
+    console.log("    Password: configured via ADMIN_PASSWORD");
+  } else {
+    console.log("  Admin login skipped. Set ADMIN_PASSWORD to seed an admin user.");
+  }
   console.log("");
 }
 
