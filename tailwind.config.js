@@ -8,25 +8,25 @@ module.exports = {
   theme: {
     extend: {
       colors: {
-        // ShopEase palette: deep green + orange + peach on white
-        cream: "#ffffff", // page background (white)
-        sand: "#f6efe7", // subtle panel
-        peach: "#fdeee1", // peach panels (trust strip / deal card)
-        clay: "#e8622c", // primary orange CTA
-        clayDark: "#cf5322",
-        terracotta: "#f2a07f",
-        forest: "#21402f", // deep green (hero/newsletter/footer/utility)
-        forestDark: "#173121",
-        blue: "#21402f", // (legacy alias) → green
-        teal: "#21402f",
-        olive: "#21402f",
-        sage: "#3c5c48",
-        ink: "#20201c", // near-black text
-        espresso: "#14140f",
-        gold: "#e8622c",
-        goldSoft: "#f4a06f",
-        muted: "#8a8579",
-        line: "#ece7df",
+        // Marketplace palette: indigo brand + orange CTA + white/gray
+        cream: "#f4f6fb", // light gray page background
+        sand: "#eaeef7", // subtle panels
+        peach: "#eef2fb", // light blue tint
+        clay: "#ef6c2e", // primary orange CTA
+        clayDark: "#d4571c",
+        terracotta: "#f59a72",
+        forest: "#26408b", // indigo brand (header/footer/hero)
+        forestDark: "#1c3068",
+        blue: "#2f6fed", // link / secondary
+        teal: "#0a9d6e", // "Get Best Price" green
+        olive: "#0a9d6e",
+        sage: "#5b8f76",
+        ink: "#232733", // slate text
+        espresso: "#161a26",
+        gold: "#f4b400",
+        goldSoft: "#ffd66b",
+        muted: "#6b7280",
+        line: "#e2e7f1",
       },
       fontFamily: {
         serif: ["var(--font-serif)", "Georgia", "serif"],

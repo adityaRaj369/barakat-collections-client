@@ -2,47 +2,40 @@
 
 import { useEffect, useState } from "react";
 
+// Plays once per full page load. Hiding is driven by CSS (so it can never get
+// "stuck" if a JS timer is delayed); JS just removes it from the DOM afterward.
 let PLAYED = false;
 
 export default function Preloader() {
-  const [done, setDone] = useState(false);
-  const [gone, setGone] = useState(false);
+  const [show, setShow] = useState(!PLAYED);
 
   useEffect(() => {
     if (PLAYED) {
-      setGone(true);
+      setShow(false);
       return;
     }
-    document.body.style.overflow = "hidden";
-    const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-    const t1 = setTimeout(() => setDone(true), reduce ? 0 : 1500);
-    const t2 = setTimeout(() => {
+    const t = setTimeout(() => {
       PLAYED = true;
-      setGone(true);
-      document.body.style.overflow = "";
-    }, reduce ? 40 : 2300);
-    return () => {
-      clearTimeout(t1);
-      clearTimeout(t2);
-      document.body.style.overflow = "";
-    };
+      setShow(false);
+    }, 2200);
+    return () => clearTimeout(t);
   }, []);
 
-  if (gone) return null;
+  if (!show) return null;
 
   return (
-    <div className={`preloader ${done ? "done" : ""}`} aria-hidden="true">
+    <div className="preloader" aria-hidden="true">
       <div className="text-center px-6">
         <div className="overflow-hidden">
           <div className="clip-up">
-            <span className="font-serif text-cream text-4xl md:text-6xl font-semibold tracking-tight">
-              Barakat <span className="text-terracotta">Collections</span>
+            <span className="font-serif text-white text-4xl md:text-6xl font-bold tracking-tight">
+              Barakat <span className="text-goldSoft">Collections</span>
             </span>
           </div>
         </div>
         <div className="overflow-hidden mt-2">
-          <p className="clip-up label text-cream/60" style={{ animationDelay: "160ms" }}>
-            Handcrafted Living
+          <p className="clip-up label text-white/60" style={{ animationDelay: "160ms" }}>
+            Artisan Marketplace
           </p>
         </div>
       </div>

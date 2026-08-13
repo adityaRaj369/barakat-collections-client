@@ -19,8 +19,8 @@ html {
 html,
 body {
   margin: 0;
-  background: #ffffff;
-  color: #20201c;
+  background: #f4f6fb;
+  color: #232733;
   font-family: var(--font-sans);
   overflow-x: hidden;
   max-width: 100%;
@@ -33,7 +33,7 @@ video {
 }
 
 ::selection {
-  background: #e8622c;
+  background: #26408b;
   color: #fff;
 }
 
@@ -79,36 +79,36 @@ video {
   transform: translateY(1px);
 }
 .btn-primary {
-  background: #e8622c;
+  background: #ef6c2e;
   color: #fff;
 }
 .btn-primary:hover {
-  background: #cf5322;
+  background: #d4571c;
 }
 .btn-outline {
-  border: 1px solid #20201c;
-  color: #20201c;
+  border: 1px solid #26408b;
+  color: #26408b;
   background: transparent;
 }
 .btn-outline:hover {
-  background: #20201c;
+  background: #26408b;
   color: #fff;
 }
 .btn-green,
 .btn-blue {
-  background: #21402f;
+  background: #26408b;
   color: #fff;
 }
 .btn-green:hover,
 .btn-blue:hover {
-  background: #173121;
+  background: #1c3068;
 }
 .btn-teal {
-  background: #21402f;
+  background: #0a9d6e;
   color: #fff;
 }
 .btn-teal:hover {
-  background: #173121;
+  background: #08825b;
 }
 .btn:disabled {
   opacity: 0.5;
@@ -117,31 +117,31 @@ video {
 
 .card {
   background: #fff;
-  border: 1px solid #ece1d4;
+  border: 1px solid #e2e7f1;
   border-radius: 16px;
 }
 
 .input {
   width: 100%;
   background: #fff;
-  border: 1px solid #ece1d4;
+  border: 1px solid #e2e7f1;
   border-radius: 10px;
   padding: 0.7rem 0.9rem;
   font-size: 15px;
-  color: #1f1a17;
+  color: #232733;
   outline: none;
   transition: border-color 0.2s ease, box-shadow 0.2s ease;
 }
 .input:focus {
-  border-color: #e8622c;
-  box-shadow: 0 0 0 3px rgba(232, 98, 44, 0.15);
+  border-color: #26408b;
+  box-shadow: 0 0 0 3px rgba(38, 64, 139, 0.15);
 }
 .input::placeholder {
   color: #b3a898;
 }
 
 .hover-underline {
-  background-image: linear-gradient(#e8622c, #e8622c);
+  background-image: linear-gradient(#26408b, #26408b);
   background-size: 0% 1.5px;
   background-position: 0 100%;
   background-repeat: no-repeat;
@@ -209,15 +209,22 @@ video {
   position: fixed;
   inset: 0;
   z-index: 200;
-  background: #21402f;
+  background: #26408b;
   display: flex;
   align-items: center;
   justify-content: center;
-  transition: transform 0.9s cubic-bezier(0.76, 0, 0.24, 1),
-    opacity 0.6s ease;
+  /* CSS-driven auto-hide so it can never get stuck: holds, then slides up */
+  animation: plHide 2.1s cubic-bezier(0.76, 0, 0.24, 1) forwards;
 }
-.preloader.done {
-  transform: translateY(-100%);
+@keyframes plHide {
+  0%,
+  72% {
+    transform: translateY(0);
+  }
+  100% {
+    transform: translateY(-100%);
+    visibility: hidden;
+  }
 }
 .preloader__bar {
   position: absolute;
@@ -226,11 +233,16 @@ video {
   height: 3px;
   width: 0;
   background: #e8622c;
-  animation: plbar 1.6s ease forwards;
+  animation: plbar 1.5s ease forwards;
 }
 @keyframes plbar {
   to {
     width: 100%;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .preloader {
+    display: none;
   }
 }
 .clip-up {
