@@ -2,6 +2,7 @@ import Link from "next/link";
 import prisma from "@/lib/prisma";
 import { serializeProduct } from "@/lib/format";
 import ProductCard from "@/components/ProductCard";
+import { DEMO_CATEGORIES, filterDemo } from "@/lib/demoData";
 
 export const dynamic = "force-dynamic";
 
@@ -42,15 +43,22 @@ async function getData(searchParams) {
       }),
       prisma.category.findMany({ orderBy: { name: "asc" } }),
     ]);
+    const productsS = products.map(serializeProduct);
     return {
-      products: products.map(serializeProduct),
-      categories,
+      products: productsS.length ? productsS : filterDemo({ category, q, sort: sortKey }),
+      categories: categories.length ? categories : DEMO_CATEGORIES,
       category,
       q,
       sortKey,
     };
   } catch {
-    return { products: [], categories: [], category, q, sortKey };
+    return {
+      products: filterDemo({ category, q, sort: sortKey }),
+      categories: DEMO_CATEGORIES,
+      category,
+      q,
+      sortKey,
+    };
   }
 }
 

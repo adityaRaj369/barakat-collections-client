@@ -7,11 +7,11 @@ import { useSession, signOut } from "next-auth/react";
 import { useCart } from "./CartContext";
 
 const NAV = [
-  { label: "Shop All", href: "/products" },
+  { label: "New In", href: "/products?sort=newest" },
   { label: "Vases & Planters", href: "/products?category=vases-planters" },
   { label: "Lighting", href: "/products?category=lighting" },
-  { label: "Wall Décor", href: "/products?category=wall-decor" },
-  { label: "Textiles", href: "/products?category=textiles-cushions" },
+  { label: "Home & Living", href: "/products?category=wall-decor" },
+  { label: "Deals", href: "/products" },
 ];
 
 export default function Header() {
@@ -28,106 +28,103 @@ export default function Header() {
 
   return (
     <>
-    <header className="sticky top-0 z-50 bg-cream/90 backdrop-blur border-b border-line">
-      <div className="bg-ink text-cream text-center py-1.5">
-        <span className="label">Handmade in India · Free shipping over ₹1,499</span>
+      {/* utility bar */}
+      <div className="bg-forest text-white/90 text-xs">
+        <div className="container-x flex items-center justify-between h-9 gap-4">
+          <span className="hidden sm:flex items-center gap-1.5">
+            <TruckIcon /> FREE SHIPPING <span className="text-white/55">on orders over ₹1,499</span>
+          </span>
+          <span className="flex items-center gap-1.5">
+            <TagIcon /> EXTRA 10% OFF <span className="text-white/55">on prepaid orders</span>
+          </span>
+          <Link href="/account" className="hidden md:inline underline underline-offset-2 hover:text-white ml-auto">
+            Track Order
+          </Link>
+        </div>
       </div>
-      <div className="container-x">
-        <div className="flex items-center justify-between h-16 md:h-20 gap-4">
-          <div className="flex items-center gap-3 flex-1">
-            <button
-              className="md:hidden p-2 -ml-2"
-              aria-label="Menu"
-              onClick={() => setOpen(true)}
-            >
-              <Burger />
-            </button>
-            <nav className="hidden md:flex items-center gap-6">
-              {NAV.slice(1).map((n) => (
-                <Link
-                  key={n.label}
-                  href={n.href}
-                  className="text-sm text-ink/75 hover:text-ink hover-underline"
-                >
+
+      {/* main bar */}
+      <header className="sticky top-0 z-50 bg-white border-b border-line">
+        <div className="container-x">
+          <div className="flex items-center justify-between h-16 md:h-[76px] gap-4">
+            <div className="flex items-center gap-3">
+              <button className="lg:hidden p-2 -ml-2" aria-label="Menu" onClick={() => setOpen(true)}>
+                <Burger />
+              </button>
+              <Link href="/" className="flex items-center gap-2.5">
+                <span className="w-10 h-10 rounded-xl bg-clay text-white grid place-items-center">
+                  <BagIcon />
+                </span>
+                <span className="leading-none">
+                  <span className="block font-serif text-xl md:text-2xl font-bold tracking-tight text-forest">
+                    Barakat<span className="text-clay">Collections</span>
+                  </span>
+                  <span className="hidden sm:block text-[10px] text-muted mt-0.5">
+                    Shop Handmade. Live Beautiful.
+                  </span>
+                </span>
+              </Link>
+            </div>
+
+            <nav className="hidden lg:flex items-center gap-8">
+              {NAV.map((n) => (
+                <Link key={n.label} href={n.href} className="text-sm font-medium text-ink/80 hover:text-clay transition">
                   {n.label}
                 </Link>
               ))}
             </nav>
-          </div>
 
-          <Link href="/" className="shrink-0" aria-label="BARAKAT COLLECTIONS home">
-            <span className="font-serif text-lg sm:text-xl md:text-2xl font-semibold tracking-tight text-ink whitespace-nowrap">
-              Barakat <span className="text-clay">Collections</span>
-            </span>
-          </Link>
-
-          <div className="flex items-center gap-4 md:gap-5 flex-1 justify-end">
-            {session?.user ? (
-              <div className="hidden md:flex items-center gap-4">
-                <Link href="/account" className="text-sm hover-underline">
+            <div className="flex items-center gap-4 md:gap-5">
+              {session?.user ? (
+                <Link href="/account" className="hidden md:inline text-sm hover:text-clay">
                   {session.user.name?.split(" ")[0] || "Account"}
                 </Link>
-                <button
-                  onClick={() => signOut({ callbackUrl: "/" })}
-                  className="text-sm text-muted hover:text-ink"
-                >
-                  Sign out
-                </button>
-              </div>
-            ) : (
-              <Link href="/login" className="hidden md:inline text-sm hover-underline">
-                Sign in
+              ) : (
+                <Link href="/login" className="hidden md:inline text-sm hover:text-clay">Sign in</Link>
+              )}
+              <Link href="/cart" className="relative p-1" aria-label="Cart">
+                <BagIcon large />
+                {count > 0 && (
+                  <span className="absolute -top-1 -right-1.5 bg-clay text-white text-[10px] font-bold min-w-[17px] h-[17px] px-1 rounded-full grid place-items-center">
+                    {count}
+                  </span>
+                )}
               </Link>
-            )}
-            <Link href="/cart" className="relative flex items-center gap-1.5 text-sm">
-              <BagIcon />
-              <span className="tabular-nums">{count}</span>
-            </Link>
+              <Link href="/products" className="hidden sm:inline-flex btn btn-primary !py-2.5 !px-5 text-sm !rounded-lg">
+                SHOP NOW
+              </Link>
+            </div>
           </div>
         </div>
-      </div>
-    </header>
+      </header>
 
-      {/* mobile drawer — sibling of <header> so `fixed` anchors to the viewport
-          (a blurred ancestor would otherwise become its containing block) */}
+      {/* mobile drawer */}
       {open && (
-        <div className="md:hidden fixed inset-0 z-[60]">
-          <div className="absolute inset-0 bg-ink/40" onClick={() => setOpen(false)} />
-          <div className="absolute top-0 left-0 h-full w-[84%] max-w-xs bg-cream flex flex-col">
-            <div className="flex items-center justify-between h-16 px-5 border-b border-line">
-              <span className="font-serif text-xl font-semibold">BARAKAT COLLECTIONS</span>
-              <button onClick={() => setOpen(false)} className="text-2xl leading-none p-2">
-                ×
-              </button>
+        <div className="lg:hidden fixed inset-0 z-[70]">
+          <div className="absolute inset-0 bg-ink/50" onClick={() => setOpen(false)} />
+          <div className="absolute top-0 left-0 h-full w-[84%] max-w-xs bg-white flex flex-col">
+            <div className="flex items-center justify-between h-16 px-5 bg-forest text-white">
+              <span className="font-serif text-lg font-bold">Barakat Collections</span>
+              <button onClick={() => setOpen(false)} className="text-2xl leading-none p-2">×</button>
             </div>
             <nav className="flex flex-col px-5 py-2 overflow-y-auto">
               {NAV.map((n) => (
-                <Link
-                  key={n.label}
-                  href={n.href}
-                  className="py-3.5 border-b border-line text-[15px]"
-                >
+                <Link key={n.label} href={n.href} className="py-3.5 border-b border-line text-[15px] font-medium">
                   {n.label}
                 </Link>
               ))}
               {session?.user ? (
                 <>
-                  <Link href="/account" className="py-3.5 border-b border-line text-[15px]">
-                    My Account
-                  </Link>
-                  <button
-                    onClick={() => signOut({ callbackUrl: "/" })}
-                    className="py-3.5 text-left text-[15px] text-muted"
-                  >
-                    Sign out
-                  </button>
+                  <Link href="/account" className="py-3.5 border-b border-line text-[15px]">My Account</Link>
+                  <button onClick={() => signOut({ callbackUrl: "/" })} className="py-3.5 text-left text-[15px] text-muted">Sign out</button>
                 </>
               ) : (
-                <Link href="/login" className="py-3.5 text-[15px]">
-                  Sign in / Register
-                </Link>
+                <Link href="/login" className="py-3.5 text-[15px]">Sign in / Register</Link>
               )}
             </nav>
+            <div className="mt-auto p-4">
+              <Link href="/products" className="btn btn-primary w-full !rounded-lg">SHOP NOW</Link>
+            </div>
           </div>
         </div>
       )}
@@ -144,12 +141,25 @@ function Burger() {
     </div>
   );
 }
-
-function BagIcon() {
+function BagIcon({ large }) {
+  const s = large ? 22 : 20;
   return (
-    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6">
-      <path d="M6 8h12l-1 12H7L6 8z" />
-      <path d="M9 8V6a3 3 0 0 1 6 0v2" />
+    <svg width={s} height={s} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.7">
+      <path d="M6 8h12l-1 12H7L6 8z" /><path d="M9 8V6a3 3 0 0 1 6 0v2" />
+    </svg>
+  );
+}
+function TruckIcon() {
+  return (
+    <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.7">
+      <path d="M3 7h11v9H3zM14 10h4l3 3v3h-7z" /><circle cx="7" cy="18" r="1.5" /><circle cx="17.5" cy="18" r="1.5" />
+    </svg>
+  );
+}
+function TagIcon() {
+  return (
+    <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.7">
+      <path d="M3 12l9-9 9 9-9 9z" /><circle cx="12" cy="9" r="1.1" />
     </svg>
   );
 }

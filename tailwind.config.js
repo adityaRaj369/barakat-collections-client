@@ -8,19 +8,25 @@ module.exports = {
   theme: {
     extend: {
       colors: {
-        // warm, artisanal handicraft palette
-        cream: "#faf5ec",
-        sand: "#f0e6d6",
-        clay: "#c1614a",
-        clayDark: "#a44a35",
-        terracotta: "#d98363",
-        olive: "#5c6a4a",
-        ink: "#221b18",
-        espresso: "#17110e",
-        gold: "#caa24a",
-        goldSoft: "#e6cf95",
-        muted: "#8a7f74",
-        line: "#e6dccb",
+        // ShopEase palette: deep green + orange + peach on white
+        cream: "#ffffff", // page background (white)
+        sand: "#f6efe7", // subtle panel
+        peach: "#fdeee1", // peach panels (trust strip / deal card)
+        clay: "#e8622c", // primary orange CTA
+        clayDark: "#cf5322",
+        terracotta: "#f2a07f",
+        forest: "#21402f", // deep green (hero/newsletter/footer/utility)
+        forestDark: "#173121",
+        blue: "#21402f", // (legacy alias) → green
+        teal: "#21402f",
+        olive: "#21402f",
+        sage: "#3c5c48",
+        ink: "#20201c", // near-black text
+        espresso: "#14140f",
+        gold: "#e8622c",
+        goldSoft: "#f4a06f",
+        muted: "#8a8579",
+        line: "#ece7df",
       },
       fontFamily: {
         serif: ["var(--font-serif)", "Georgia", "serif"],

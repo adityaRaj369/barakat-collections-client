@@ -243,7 +243,7 @@ export default function CheckoutPage() {
               {loading ? "Processing…" : `Pay ${formatPrice(total)}`}
             </button>
             <p className="text-xs text-muted text-center mt-3">
-              🔒 Secure checkout. Payments by Razorpay.
+              Secure checkout — payments protected by Razorpay.
             </p>
           </div>
         </div>

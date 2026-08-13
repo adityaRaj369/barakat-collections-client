@@ -9,7 +9,7 @@ const NAV = [
   { label: "Overview", href: "/admin", icon: "◧" },
   { label: "Products", href: "/admin/products", icon: "▦" },
   { label: "Categories", href: "/admin/categories", icon: "❏" },
-  { label: "Orders", href: "/admin/orders", icon: "🧾" },
+  { label: "Orders", href: "/admin/orders", icon: "▤" },
 ];
 
 export default function AdminSidebar() {

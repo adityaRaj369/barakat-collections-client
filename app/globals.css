@@ -18,13 +18,13 @@ html {
 
 body {
   margin: 0;
-  background: #faf5ec;
-  color: #2b2320;
+  background: #ffffff;
+  color: #20201c;
   font-family: var(--font-sans);
 }
 
 ::selection {
-  background: #c1614a;
+  background: #e8622c;
   color: #fff;
 }
 
@@ -70,20 +70,36 @@ body {
   transform: translateY(1px);
 }
 .btn-primary {
-  background: #c1614a;
+  background: #e8622c;
   color: #fff;
 }
 .btn-primary:hover {
-  background: #a44a35;
+  background: #cf5322;
 }
 .btn-outline {
-  border: 1px solid #2b2320;
-  color: #2b2320;
+  border: 1px solid #20201c;
+  color: #20201c;
   background: transparent;
 }
 .btn-outline:hover {
-  background: #2b2320;
-  color: #faf5ec;
+  background: #20201c;
+  color: #fff;
+}
+.btn-green,
+.btn-blue {
+  background: #21402f;
+  color: #fff;
+}
+.btn-green:hover,
+.btn-blue:hover {
+  background: #173121;
+}
+.btn-teal {
+  background: #21402f;
+  color: #fff;
+}
+.btn-teal:hover {
+  background: #173121;
 }
 .btn:disabled {
   opacity: 0.5;
@@ -92,31 +108,31 @@ body {
 
 .card {
   background: #fff;
-  border: 1px solid #e6dccb;
+  border: 1px solid #ece1d4;
   border-radius: 16px;
 }
 
 .input {
   width: 100%;
   background: #fff;
-  border: 1px solid #e6dccb;
+  border: 1px solid #ece1d4;
   border-radius: 10px;
   padding: 0.7rem 0.9rem;
   font-size: 15px;
-  color: #2b2320;
+  color: #1f1a17;
   outline: none;
   transition: border-color 0.2s ease, box-shadow 0.2s ease;
 }
 .input:focus {
-  border-color: #c1614a;
-  box-shadow: 0 0 0 3px rgba(193, 97, 74, 0.15);
+  border-color: #e8622c;
+  box-shadow: 0 0 0 3px rgba(232, 98, 44, 0.15);
 }
 .input::placeholder {
   color: #b3a898;
 }
 
 .hover-underline {
-  background-image: linear-gradient(#c1614a, #c1614a);
+  background-image: linear-gradient(#e8622c, #e8622c);
   background-size: 0% 1.5px;
   background-position: 0 100%;
   background-repeat: no-repeat;
@@ -184,7 +200,7 @@ body {
   position: fixed;
   inset: 0;
   z-index: 200;
-  background: #2b2320;
+  background: #21402f;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -198,9 +214,9 @@ body {
   position: absolute;
   bottom: 0;
   left: 0;
-  height: 2px;
+  height: 3px;
   width: 0;
-  background: #d98363;
+  background: #e8622c;
   animation: plbar 1.6s ease forwards;
 }
 @keyframes plbar {

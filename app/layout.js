@@ -3,8 +3,6 @@ import Providers from "@/components/Providers";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import Preloader from "@/components/Preloader";
-import Cursor from "@/components/Cursor";
-import AuroraBackground from "@/components/AuroraBackground";
 
 const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "http://localhost:3000";
 
@@ -43,7 +41,7 @@ export const metadata = {
 };
 
 export const viewport = {
-  themeColor: "#c1614a",
+  themeColor: "#ea5a2b",
   width: "device-width",
   initialScale: 1,
 };
@@ -64,10 +62,8 @@ export default function RootLayout({ children }) {
         />
       </head>
       <body className="min-h-screen flex flex-col">
-        <AuroraBackground />
         <Providers>
           <Preloader />
-          <Cursor />
           <Header />
           <main className="flex-1">{children}</main>
           <Footer />
